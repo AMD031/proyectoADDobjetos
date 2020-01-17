@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from CocheFavorito")
+@NamedQuery(name="recupearTodo", query="select c from CocheFavorito c")
   
 })
 

@@ -28,7 +28,7 @@ import javax.persistence.Table;
  */
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Coche")
+@NamedQuery(name="recupearTodo", query="select c from Coche c")
   
 })
 

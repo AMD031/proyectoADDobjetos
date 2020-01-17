@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Ventas") 
+@NamedQuery(name="recupearTodo", query="select c from Ventas c") 
 })
 
 
@@ -45,10 +45,10 @@ public class Venta implements Serializable{
     private Coche coche;
     @Column(name = "precio")
     private float precio; 
-    
-    
-    public Venta(String Fecha) {
-        this.fecha = Fecha;
+
+    public Venta(String fecha, float precio) {
+        this.fecha = fecha;
+        this.precio = precio;
     }
 
     public List<Concesionario> getConcesionarios() {

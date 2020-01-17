@@ -27,7 +27,7 @@ import javax.persistence.Table;
 
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Fabricante ")
+@NamedQuery(name="recupearTodo", query="select c from Fabricante c")
   
 })
 

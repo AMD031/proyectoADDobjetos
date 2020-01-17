@@ -26,7 +26,7 @@ import javax.persistence.Table;
  */
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Concesionario ")
+@NamedQuery(name="recupearTodo", query="select c from Concesionario c")
   
 })
 
@@ -42,16 +42,16 @@ public class Concesionario {
     private String cif;
     @Column(name = "nombre")
     private String nombre;
-    @Column(name = "localid")
-    private String localida;
+    @Column(name = "localidad")
+    private String localidad;
 
     public Concesionario() {
     }
     
-    public Concesionario(String cif, String nombre, String localida) {
+    public Concesionario(String cif, String nombre, String localidad) {
         this.cif = cif;
         this.nombre = nombre;
-        this.localida = localida;
+        this.localidad = localidad;
     }
 
  @ManyToMany

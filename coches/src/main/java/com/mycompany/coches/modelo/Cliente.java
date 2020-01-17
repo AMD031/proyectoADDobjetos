@@ -31,7 +31,9 @@ import javax.persistence.Table;
  */
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Cliente ")
+@NamedQuery(name="recupearTodo", query="select c from Cliente c"),
+@NamedQuery(name="recuperarCriteriaSinOrder", query="SELECT c FROM Cliente c, Venta v, Concesionario co WHERE c.ventasCli.id=v.id AND v.id=co.ventasCon.id AND c.ventasCli.fecha=:fechaVenta AND co.cif=:CIFConcesionario ORDER BY c.apellidos,c.nombre"),
+@NamedQuery(name="recuperarCriteriaConOrder", query="SELECT c FROM Cliente c, Venta v, Concesionario co WHERE c.ventasCli.id=v.id AND v.id=co.ventasCon.id AND c.ventasCli.fecha=:fechaVenta AND co.cif=:CIFConcesionario")
   
 })
 

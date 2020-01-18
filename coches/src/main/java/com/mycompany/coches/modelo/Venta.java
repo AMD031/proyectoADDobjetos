@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Ventas c") 
+@NamedQuery(name="recupearTodoVenta", query="select c from Venta c") 
 })
 
 
@@ -33,14 +34,16 @@ public class Venta implements Serializable{
     private int id;
     private String fecha;
     
-    @ManyToMany(mappedBy="ventasCli")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_concesionario")
     private List<Cliente>clientes;
     
-    @ManyToMany(mappedBy="ventasCon")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cliente")
     private List<Concesionario>concesionarios;
     
     
-    @ManyToOne(fetch = FetchType.LAZY ) 
+    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL) 
     @JoinColumn(name = "id_coche")
     private Coche coche;
     @Column(name = "precio")
@@ -48,6 +51,14 @@ public class Venta implements Serializable{
 
     public Venta(String fecha, float precio) {
         this.fecha = fecha;
+        this.precio = precio;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
@@ -67,9 +78,6 @@ public class Venta implements Serializable{
         this.coche = coche;
     }
     
-    
-    
-
     public int getId() {
         return id;
     }
@@ -98,13 +106,15 @@ public class Venta implements Serializable{
       if(clientes==null){
          clientes = new ArrayList<>();
       }
+     cliente.addVentasCli(this);
      clientes.add(cliente);
   }
     
       public void addConcesionario(Concesionario concesionario){
-      if(concesionario==null){
+      if(concesionarios==null){
          concesionarios = new ArrayList<>();
       }
+      concesionario.addVentasCon(this);
       concesionarios.add(concesionario);
   }
 
@@ -144,6 +154,12 @@ public class Venta implements Serializable{
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Venta{" + "id=" + id + ", fecha=" + fecha + ", coche=" + coche + ", precio=" + precio + '}';
+    }
+
 
 
     

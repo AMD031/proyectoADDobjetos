@@ -31,9 +31,9 @@ import javax.persistence.Table;
  */
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Cliente c"),
-@NamedQuery(name="recuperarCriteriaSinOrder", query="SELECT c FROM Cliente c, Venta v, Concesionario co WHERE c.ventasCli.id=v.id AND v.id=co.ventasCon.id AND c.ventasCli.fecha=:fechaVenta AND co.cif=:CIFConcesionario ORDER BY c.apellidos,c.nombre"),
-@NamedQuery(name="recuperarCriteriaConOrder", query="SELECT c FROM Cliente c, Venta v, Concesionario co WHERE c.ventasCli.id=v.id AND v.id=co.ventasCon.id AND c.ventasCli.fecha=:fechaVenta AND co.cif=:CIFConcesionario")
+@NamedQuery(name="recupearTodoCliente", query="select c from Cliente c"),
+@NamedQuery(name="recuperarCriteriaSinOrder", query = "SELECT c FROM Cliente c INNER JOIN c.ventasCli cli INNER JOIN cli.concesionarios r  INNER JOIN cli.coche co  where co.ventas.fecha =:fechaVenta and r.cif=:CIFConcesionario order by c.apellidos , c.nombre"),
+@NamedQuery(name="recuperarCriteriaConOrder", query = "SELECT c FROM Cliente c INNER JOIN c.ventasCli cli INNER JOIN cli.concesionarios r  INNER JOIN cli.coche co  where co.ventas.fecha =:fechaVenta and r.cif=:CIFConcesionario")
   
 })
 
@@ -58,7 +58,7 @@ public class Cliente {
     @Column(name = "fecha")
     private String fecha;
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cochefavorito")
     private CocheFavorito cocheFavorito;
  
@@ -122,8 +122,7 @@ public class Cliente {
         this.fecha = fecha;
     }
 
- @ManyToMany
- @JoinTable(name="id_clientes")
+ @ManyToMany(mappedBy = "clientes", cascade = CascadeType.ALL)
  private List<Venta>ventasCli;
  
  public void addVentasCli (Venta venta){

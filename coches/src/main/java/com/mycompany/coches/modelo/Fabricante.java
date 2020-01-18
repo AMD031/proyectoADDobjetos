@@ -27,7 +27,7 @@ import javax.persistence.Table;
 
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Fabricante c")
+@NamedQuery(name="recupearTodoFabricante", query="select c from Fabricante c")
   
 })
 
@@ -46,6 +46,9 @@ public class Fabricante {
     private String nombre;
     @OneToMany(mappedBy = "fabricante", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Coche> coches;
+
+    public Fabricante() {
+    }
 
     
     public Fabricante(String cif, String nombre) {

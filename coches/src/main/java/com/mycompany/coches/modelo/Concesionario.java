@@ -8,6 +8,7 @@ package com.mycompany.coches.modelo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
  */
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Concesionario c")
+    @NamedQuery(name="recupearTodoConcesionario", query="select c from Concesionario c")
   
 })
 
@@ -34,7 +35,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Concesionario")
 public class Concesionario {
-  @Id 
+    @Id 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_concesionario", updatable = false, nullable = false)
     private int id;
@@ -54,16 +55,62 @@ public class Concesionario {
         this.localidad = localidad;
     }
 
- @ManyToMany
- @JoinTable(name="concesionarios")
+ @ManyToMany(mappedBy="concesionarios", cascade = CascadeType.ALL)
  private List<Venta>ventasCon;  
  public void addVentasCon (Venta venta){
       if(ventasCon==null){
         ventasCon = new ArrayList<>();
       }
-     ventasCon.add(venta);
+      ventasCon.add(venta);
   } 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCif() {
+        return cif;
+    }
+
+    public void setCif(String cif) {
+        this.cif = cif;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public List<Venta> getVentasCon() {
+        return ventasCon;
+    }
+
+    public void setVentasCon(List<Venta> ventasCon) {
+        this.ventasCon = ventasCon;
+    }
+
+    @Override
+    public String toString() {
+        return "Concesionario{" + "id=" + id + ", cif=" + cif + ", nombre=" + nombre + ", localidad=" + localidad + '}';
+    }
+
+ 
+ 
     
     
 }

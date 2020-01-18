@@ -23,6 +23,39 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 public class Listar {
 
+        //Recuperar cliente
+    public static Cliente rClientePorId(int id) {
+        EntityManager manager = Conexion.getConexion().getEmf();
+        Cliente cliente = manager.find(Cliente.class, id);
+        manager.close();
+        return cliente;
+    }
+
+    public static List<Cliente> rclienteTodos() {
+        TypedQuery<Cliente> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodoCliente", Cliente.class);
+        List<Cliente> clientes = consulta.getResultList();
+        Conexion.getConexion().getEmf().close();
+        return clientes;
+    }
+
+    public static List<Cliente> rClienteCondicion(String fechaVenta, String CIFConcesionario, boolean ordenarClienteDesc) {
+        TypedQuery<Cliente> consulta;
+        List<Cliente> clientes;
+        
+        if(ordenarClienteDesc){
+            consulta= Conexion.getConexion().getEmf().createNamedQuery("recuperarCriteriaConOrder", Cliente.class).setParameter("fechaVenta", fechaVenta).setParameter("CIFConcesionario", CIFConcesionario);
+            clientes = consulta.getResultList();
+        }
+        else{
+            consulta= Conexion.getConexion().getEmf().createNamedQuery("recuperarCriteriaSinOrder", Cliente.class).setParameter("fechaVenta", fechaVenta).setParameter("CIFConcesionario", CIFConcesionario);
+            clientes = consulta.getResultList();
+        }
+        Conexion.getConexion().getEmf().close();
+        return clientes;
+    }
+    
+    
+    
     //Recuperar coches
     public static Coche rCochePorId(int id) {
         EntityManager manager = Conexion.getConexion().getEmf();
@@ -32,9 +65,10 @@ public class Listar {
     }
 
     public static List<Coche> rCocheTodos() {
-        TypedQuery<Coche> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodo", Coche.class);
+        TypedQuery<Coche> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodoCoche", Coche.class);
+         List<Coche> coches = consulta.getResultList();
         Conexion.getConexion().getEmf().close();
-        return consulta.getResultList();
+        return coches;
     }
 
     //Recuperar cocheFavorito
@@ -46,9 +80,10 @@ public class Listar {
     }
 
     public static List<CocheFavorito> rCocheFavoritoTodos() {
-        TypedQuery<CocheFavorito> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodo", CocheFavorito.class);
+        TypedQuery<CocheFavorito> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodoCocheFavorito", CocheFavorito.class);
+        List<CocheFavorito> cocheFavoritos=consulta.getResultList();
         Conexion.getConexion().getEmf().close();
-        return consulta.getResultList();
+        return cocheFavoritos;
     }
 
     //Recuperar Concesionario
@@ -60,36 +95,13 @@ public class Listar {
     }
 
     public static List<Concesionario> rConcesionarioTodos() {
-        TypedQuery<Concesionario> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodo", Concesionario.class);
+        TypedQuery<Concesionario> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodoConcesionario", Concesionario.class);
+        List<Concesionario> concesionarios =consulta.getResultList();
         Conexion.getConexion().getEmf().close();
-        return consulta.getResultList();
+        return concesionarios;
     }
 
-    //Recuperar cliente
-    public static Cliente rClientePorId(int id) {
-        EntityManager manager = Conexion.getConexion().getEmf();
-        Cliente cliente = manager.find(Cliente.class, id);
-        manager.close();
-        return cliente;
-    }
 
-    public static List<Cliente> rclienteTodos() {
-        TypedQuery<Cliente> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodo", Cliente.class);
-        Conexion.getConexion().getEmf().close();
-        return consulta.getResultList();
-    }
-
-    public static List<Cliente> rClienteCondicion(String fechaVenta, String CIFConcesionario, boolean ordenarClienteDesc) {
-        TypedQuery<Cliente> consulta;
-        if(ordenarClienteDesc){
-            consulta= Conexion.getConexion().getEmf().createNamedQuery("recuperarCriteriaConOrder", Cliente.class).setParameter("fechaVenta", fechaVenta).setParameter("CIFConcesionario", CIFConcesionario);
-        }
-        else{
-            consulta= Conexion.getConexion().getEmf().createNamedQuery("recuperarCriteriaSinOrder", Cliente.class).setParameter("fechaVenta", fechaVenta).setParameter("CIFConcesionario", CIFConcesionario);
-        }
-        Conexion.getConexion().getEmf().close();
-        return consulta.getResultList();
-    }
 
     //Recuperar Fabricante
     public static Fabricante rFabricantePorId(int id) {
@@ -100,9 +112,10 @@ public class Listar {
     }
 
     public static List<Fabricante> rfabricanteTodos() {
-        TypedQuery<Fabricante> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodo", Fabricante.class);
+        TypedQuery<Fabricante> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodoFabricante", Fabricante.class);
+        List<Fabricante> fabricantes =consulta.getResultList();
         Conexion.getConexion().getEmf().close();
-        return consulta.getResultList();
+        return fabricantes;
     }
 
     //Recuperar Venta   
@@ -114,9 +127,10 @@ public class Listar {
     }
 
     public static List<Venta> rVentaTodos() {
-        TypedQuery<Venta> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodo", Venta.class);
+        TypedQuery<Venta> consulta = Conexion.getConexion().getEmf().createNamedQuery("recupearTodoVenta", Venta.class);
+        List<Venta> ventas =consulta.getResultList();
         Conexion.getConexion().getEmf().close();
-        return consulta.getResultList();
+        return ventas ;
     }
 
 }

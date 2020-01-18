@@ -28,7 +28,7 @@ import javax.persistence.Table;
  */
 
 @NamedQueries({
-@NamedQuery(name="recupearTodo", query="select c from Coche c")
+@NamedQuery(name="recupearTodoCoche", query="select c from Coche c")
   
 })
 
@@ -42,8 +42,8 @@ public class Coche {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_coche", updatable = false, nullable = false)
     private int id;
-    @Column(name = "Bastidor")
-    private String Bastidor;
+    @Column(name = "bastidor")
+    private String bastidor;
     @Column(name = "modelo")
     private String modelo;
     @Column(name = "color")
@@ -52,13 +52,13 @@ public class Coche {
     @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Venta>ventas;
   
-    @ManyToOne(fetch = FetchType.LAZY ) 
+    @ManyToOne(fetch = FetchType.LAZY, cascade =CascadeType.ALL) 
     @JoinColumn(name = "id_coche")
     private Fabricante fabricante;
 
     
       public Coche(String Bastidor, String modelo, String color) {
-        this.Bastidor = Bastidor;
+        this.bastidor = Bastidor;
         this.modelo = modelo;
         this.color = color;
     }
@@ -84,12 +84,9 @@ public class Coche {
         this.id = id;
     }
 
-    public String getVastidor() {
-        return Bastidor;
-    }
 
     public void setBastidor(String Bastidor) {
-        this.Bastidor = Bastidor;
+        this.bastidor = Bastidor;
     }
 
     public String getModelo() {
@@ -109,14 +106,14 @@ public class Coche {
     }
     
     public String getBastidor() {
-        return Bastidor;
+        return bastidor;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 43 * hash + this.id;
-        hash = 43 * hash + Objects.hashCode(this.Bastidor);
+        hash = 43 * hash + Objects.hashCode(this.bastidor);
         hash = 43 * hash + Objects.hashCode(this.modelo);
         hash = 43 * hash + Objects.hashCode(this.color);
         hash = 43 * hash + Objects.hashCode(this.fabricante);
@@ -138,7 +135,7 @@ public class Coche {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.Bastidor, other.Bastidor)) {
+        if (!Objects.equals(this.bastidor, other.bastidor)) {
             return false;
         }
         if (!Objects.equals(this.modelo, other.modelo)) {
@@ -152,6 +149,14 @@ public class Coche {
         }
         return true;
     }
+
+    public List<Venta> getVentas() {
+        return ventas;
+    }
+
+    public void setVentas(List<Venta> ventas) {
+        this.ventas = ventas;
+    }
     
     
     
@@ -159,7 +164,7 @@ public class Coche {
 
     @Override
     public String toString() {
-        return "Coche{" + "id=" + id + ", vastidor=" + Bastidor + ", modelo=" + modelo + ", color=" + color + '}';
+        return "Coche{" + "id=" + id + ", vastidor=" + bastidor + ", modelo=" + modelo + ", color=" + color + '}';
     }
     
      public void addVenta(Venta v){

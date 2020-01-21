@@ -17,8 +17,13 @@ public class Utilidades {
     //Variables columna ventas
     public static final int ID = 0;
     public static final int FECHA = 1;
-    public static final int  PRECIO = 2;
+    public static final int PRECIO = 2;
     public static final int COCHE = 3;
+    public static final int CONCESIONARIO =4;
+    public static final int CLIENTE =5;
+    //--------------auxiliar---------------
+     public static final int COCHEFAVORITO = 1000;
+     public static final int FABRICANTE = 2000;
     
 
     

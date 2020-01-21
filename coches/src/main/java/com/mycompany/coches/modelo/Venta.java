@@ -1,8 +1,6 @@
 package com.mycompany.coches.modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,18 +31,20 @@ public class Venta implements Serializable{
     private int id;
     private String fecha;
     
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_concesionario")
-    private List<Cliente>clientes;
-    
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name = "id_cliente")
-    private List<Concesionario>concesionarios;
+    private Cliente cliente;
+    
+    @ManyToOne(cascade = CascadeType.ALL) 
+    @JoinColumn(name = "id_concesionario")
+    private Concesionario concesionario;
     
     
-    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL) 
+    @ManyToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name = "id_coche")
     private Coche coche;
+    
+    
     @Column(name = "precio")
     private float precio; 
 
@@ -62,13 +61,7 @@ public class Venta implements Serializable{
         this.precio = precio;
     }
 
-    public List<Concesionario> getConcesionarios() {
-        return concesionarios;
-    }
 
-    public void setConcesionarios(List<Concesionario> concesionarios) {
-        this.concesionarios = concesionarios;
-    }
 
     public Coche getCoche() {
         return coche;
@@ -94,37 +87,39 @@ public class Venta implements Serializable{
         this.fecha = Fecha;
     }
 
-    public List<Cliente> getClientes() {
-        return clientes;
+   public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        cliente.addVentaCli(this);
     }
-   
-    public void addCliente(Cliente cliente){
-      if(clientes==null){
-         clientes = new ArrayList<>();
-      }
-     cliente.addVentasCli(this);
-     clientes.add(cliente);
-  }
-    
-      public void addConcesionario(Concesionario concesionario){
-      if(concesionarios==null){
-         concesionarios = new ArrayList<>();
-      }
-      concesionario.addVentasCon(this);
-      concesionarios.add(concesionario);
-  }
+
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
+    }
+
+  
+
+    @Override
+    public String toString() {
+        return "Venta{" + "id=" + id + ", fecha=" + fecha + ", coche=" + coche + ", precio=" + precio + '}';
+    }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + Objects.hashCode(this.fecha);
-        hash = 89 * hash + Objects.hashCode(this.coche);
-        hash = 89 * hash + Float.floatToIntBits(this.precio);
+        int hash = 7;
+        hash = 67 * hash + this.id;
+        hash = 67 * hash + Objects.hashCode(this.fecha);
+        hash = 67 * hash + Objects.hashCode(this.cliente);
+        hash = 67 * hash + Objects.hashCode(this.concesionario);
+        hash = 67 * hash + Objects.hashCode(this.coche);
+        hash = 67 * hash + Float.floatToIntBits(this.precio);
         return hash;
     }
 
@@ -149,17 +144,19 @@ public class Venta implements Serializable{
         if (!Objects.equals(this.fecha, other.fecha)) {
             return false;
         }
+        if (!Objects.equals(this.cliente, other.cliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.concesionario, other.concesionario)) {
+            return false;
+        }
         if (!Objects.equals(this.coche, other.coche)) {
             return false;
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Venta{" + "id=" + id + ", fecha=" + fecha + ", coche=" + coche + ", precio=" + precio + '}';
-    }
-
+ 
 
 
     

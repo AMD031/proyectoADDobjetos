@@ -27,7 +27,7 @@ public class GestionCeldas extends DefaultTableCellRenderer{
         
    
      
-	private ImageIcon iconoBorrar = createImageIcon("/res/del.png");
+	//private ImageIcon iconoBorrar = createImageIcon("/res/del.png");
 	//private ImageIcon iconoBuscar = new ImageIcon(getClass().getResource("/recursos/iconos/ico_buscar.png"));
 	public GestionCeldas(){
          
@@ -44,16 +44,22 @@ public class GestionCeldas extends DefaultTableCellRenderer{
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, boolean focused, int row, int column) {
 
           // System.out.println(System.getProperty("user.dir"));
-        if( tipo.equals("icono"))
+     
+          
+       
+          
+          if( tipo.equals("icono"))
         {
             if( String.valueOf(value).equals("COCHE") )
             {
                   //label.setIcon(iconoBuscar);
                boton.setText("verCoche");
+            }else if(String.valueOf(value).equals("CONCESIONARIO") ){
+               boton.setText("verConcesionario");
+            }else if(String.valueOf(value).equals("CLIENTE")){
+               boton.setText("verCliente");
             }
-       
-            
-            
+ 
             label.setHorizontalAlignment( JLabel.LEFT );
          // label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
           

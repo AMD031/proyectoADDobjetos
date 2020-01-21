@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -55,14 +56,20 @@ public class Concesionario {
         this.localidad = localidad;
     }
 
- @ManyToMany(mappedBy="concesionarios", cascade = CascadeType.ALL)
- private List<Venta>ventasCon;  
- public void addVentasCon (Venta venta){
-      if(ventasCon==null){
-        ventasCon = new ArrayList<>();
-      }
-      ventasCon.add(venta);
-  } 
+        @OneToMany(mappedBy="concesionario", cascade = CascadeType.ALL)
+        private List<Venta>ventasCon;  
+       
+        
+        public void addVentaCon(Venta v){
+            if(ventasCon==null){
+                ventasCon= new ArrayList<>();
+            }
+            if(! ventasCon.contains(v)){
+                   ventasCon.add(v);
+                   v.setConcesionario(this);
+             }
+           }
+
 
     public int getId() {
         return id;

@@ -32,8 +32,8 @@ public class Main {
          coche.setFabricante(new Fabricante("131223CX", "Seat"));
          coche.addVenta(venta);
          cliente.setCocheFavorito(new CocheFavorito("seat", "cordoba"));
-         venta.addCliente(cliente);
-         venta.addConcesionario(new Concesionario("12378291b", "opel", "sevill"));
+         venta.setCliente(cliente);
+         venta.setConcesionario(new Concesionario("12378291b", "opel", "sevill"));
          
          manager.persist(venta);
          manager.persist(cliente2);

@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -29,11 +30,19 @@ public class CocheFavorito {
     private int id;
     @Column(name = "marca")
     private String marca;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     @Column(name = "modelo")
     private String modelo;
     
-    @OneToOne(mappedBy = "cocheFavorito", cascade = CascadeType.ALL,
-              fetch = FetchType.LAZY, optional = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
     public CocheFavorito() {

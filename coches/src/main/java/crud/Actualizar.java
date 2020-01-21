@@ -9,7 +9,11 @@ import com.mycompany.coches.modelo.Conexion;
 import com.mycompany.coches.modelo.Venta;
 import javax.persistence.EntityManager;
 import Util.Utilidades;
+import com.mycompany.coches.modelo.Cliente;
 import com.mycompany.coches.modelo.Coche;
+import com.mycompany.coches.modelo.CocheFavorito;
+import com.mycompany.coches.modelo.Concesionario;
+
 
 /**
  *
@@ -33,26 +37,43 @@ public class Actualizar {
         manager.close();
        }catch(Exception e){
            manager.getTransaction().rollback();
+           manager.close();
        }
 
     }
 
-    public static void actualizarVenta(Coche coche, int Campo,int id) {
+    public static void actualizarVenta(Object object, int Campo,int id) {
        EntityManager manager = Conexion.getConexion().getEmf();   
        manager.getTransaction().begin();
        try{    
-        
+           
+      if(object!=null){
+        Venta venta=  manager.find(Venta.class, id);
         if(Campo == Utilidades.COCHE){     
-          Venta venta=  manager.find(Venta.class, id);
+          Coche coche =(Coche)object;
           venta.setCoche(coche);
           manager.persist(venta);
         }
         
+        if(Campo == Utilidades.CONCESIONARIO){     
+          Concesionario concesionario =(Concesionario)object;
+          venta.setConcesionario(concesionario);
+          manager.persist(venta);
+        }
+        if(Campo == Utilidades.CLIENTE){     
+          Cliente cliente =(Cliente)object;
+          venta.setCliente(cliente);
+          manager.persist(venta);
+        }
+       }   
+        
+        
         manager.getTransaction().commit();
         manager.close();
        }catch(Exception e){
-           System.out.println(e);
+
            manager.getTransaction().rollback();
+           manager.close();
        }
         
         

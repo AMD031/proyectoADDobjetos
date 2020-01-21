@@ -23,7 +23,7 @@ public class FormularioCoche extends javax.swing.JPanel {
     public FormularioCoche(int id) {
         initComponents();
         this.id = id;
-        this.coche =  Controlador.obtenerCocheVenta(id);
+        this.coche =  Controlador.obtenerVenta(id).getCoche();
         if(coche !=null){
             this.fabricante = coche.getFabricante();
         }
@@ -213,7 +213,7 @@ public class FormularioCoche extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Color)
                     .addComponent(fColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(74, 74, 74)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +223,7 @@ public class FormularioCoche extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Color1)
                     .addComponent(fNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(Guardar)
                 .addGap(20, 20, 20))
         );
@@ -243,16 +243,12 @@ public class FormularioCoche extends javax.swing.JPanel {
         cocheEditado.setModelo(fModelo.getText());
         cocheEditado.setColor(fColor.getText());
         cocheEditado.setBastidor(fBastidor.getText());
-        System.out.println(cocheEditado+" "+this.id);
-        System.out.println(fabricanteEditado+" "+this.id);
-        
+
         fabricanteEditado.setCif(fCif.getText());
         fabricanteEditado.setNombre(fNombre.getText());
         
-       cocheEditado.setFabricante(fabricanteEditado);
-  
-       
-        Controlador.actualizarCocheVenta(cocheEditado, Utilidades.COCHE, this.id);   
+        cocheEditado.setFabricante(fabricanteEditado);    
+        Controlador.actualizarVentaObjeto(cocheEditado, Utilidades.COCHE, this.id);   
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void fIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fIdActionPerformed
@@ -266,6 +262,14 @@ public class FormularioCoche extends javax.swing.JPanel {
     private void fCifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fCifActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fCifActionPerformed
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

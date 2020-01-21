@@ -10,6 +10,7 @@ import com.mycompany.coches.modelo.Coche;
 import com.mycompany.coches.modelo.CocheFavorito;
 import com.mycompany.coches.modelo.Concesionario;
 import com.mycompany.coches.modelo.Conexion;
+import com.mycompany.coches.modelo.Fabricante;
 import com.mycompany.coches.modelo.Venta;
 import javax.persistence.EntityManager;
 
@@ -20,10 +21,12 @@ import javax.persistence.EntityManager;
 public class Crear {
     //Guardar Cliente    
     public static boolean gCliente(Cliente cliente) {
+        
         EntityManager manager = Conexion.getConexion().getEmf();
         try {
             manager.getTransaction().begin();
-            manager.persist(cliente);
+            System.out.println(cliente);
+            manager.persist(cliente); 
             manager.getTransaction().commit();
         } catch (Exception e) {
             manager.getTransaction().rollback();
@@ -75,11 +78,11 @@ public class Crear {
     }
      
       // Guardar Fabricante
-      public static boolean gFabricante(Concesionario concesionario) {
+      public static boolean gFabricante(Fabricante fabricante) {
         EntityManager manager = Conexion.getConexion().getEmf();
         try {
             manager.getTransaction().begin();
-            manager.persist(concesionario);
+            manager.persist(fabricante);
             manager.getTransaction().commit();
         } catch (Exception e) {
             manager.getTransaction().rollback();

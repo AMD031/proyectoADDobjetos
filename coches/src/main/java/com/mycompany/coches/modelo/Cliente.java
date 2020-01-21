@@ -21,6 +21,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,8 +33,8 @@ import javax.persistence.Table;
 
 @NamedQueries({
 @NamedQuery(name="recupearTodoCliente", query="select c from Cliente c"),
-@NamedQuery(name="recuperarCriteriaSinOrder", query = "SELECT c FROM Cliente c INNER JOIN c.ventasCli cli INNER JOIN cli.concesionarios r  INNER JOIN cli.coche co  where co.ventas.fecha =:fechaVenta and r.cif=:CIFConcesionario order by c.apellidos , c.nombre"),
-@NamedQuery(name="recuperarCriteriaConOrder", query = "SELECT c FROM Cliente c INNER JOIN c.ventasCli cli INNER JOIN cli.concesionarios r  INNER JOIN cli.coche co  where co.ventas.fecha =:fechaVenta and r.cif=:CIFConcesionario")
+@NamedQuery(name="recuperarCriteriaSinOrder", query = "SELECT c FROM Cliente c INNER JOIN c.ventasCli cli INNER JOIN cli.concesionario r  INNER JOIN cli.coche co  where co.ventas.fecha =:fechaVenta and r.cif=:CIFConcesionario order by c.apellidos , c.nombre"),
+@NamedQuery(name="recuperarCriteriaConOrder", query = "SELECT c FROM Cliente c INNER JOIN c.ventasCli cli INNER JOIN cli.concesionario r  INNER JOIN cli.coche co  where co.ventas.fecha =:fechaVenta and r.cif=:CIFConcesionario")
   
 })
 
@@ -58,8 +59,7 @@ public class Cliente {
     @Column(name = "fecha")
     private String fecha;
     
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_cochefavorito")
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private CocheFavorito cocheFavorito;
  
 
@@ -122,15 +122,19 @@ public class Cliente {
         this.fecha = fecha;
     }
 
- @ManyToMany(mappedBy = "clientes", cascade = CascadeType.ALL)
- private List<Venta>ventasCli;
- 
- public void addVentasCli (Venta venta){
-      if(ventasCli==null){
-         ventasCli = new ArrayList<>();
-      }
-     ventasCli.add(venta);
-  }
+    @OneToMany (mappedBy = "cliente", cascade = CascadeType.ALL) 
+    private List<Venta> ventasCli;
+    
+    
+    public void addVentaCli(Venta v){
+        if(ventasCli==null){
+            ventasCli = new ArrayList<>();
+        }
+        if(! ventasCli.contains(v)){
+             ventasCli.add(v);
+             v.setCliente(this);
+         }
+    }
 
     public CocheFavorito getCocheFavorito() {
         return cocheFavorito;

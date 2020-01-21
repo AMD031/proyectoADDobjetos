@@ -8,7 +8,11 @@
 
 package Controlador;
 
+import Util.Utilidades;
+import com.mycompany.coches.modelo.Cliente;
 import com.mycompany.coches.modelo.Coche;
+import com.mycompany.coches.modelo.Concesionario;
+import com.mycompany.coches.modelo.Fabricante;
 import crud.*;
 import com.mycompany.coches.modelo.Venta;
 
@@ -26,8 +30,7 @@ public class Controlador {
       public static List<Venta> devolverVentas() {
         return  Listar.rVentaTodos();
     }
-    
-     
+      
       
        public static String obtenerCampoMo(String campo, int indice) {
         String resultado = "";
@@ -47,14 +50,11 @@ public class Controlador {
     }
 
     public static void actualizarMo(int in, int campo, String cambio) {
-      
-        Actualizar.actulizarCampoMo(in, campo, cambio);
-        
-        
+        Actualizar.actulizarCampoMo(in, campo, cambio);       
     }
 
-    public static Coche obtenerCocheVenta(int id) {
-       return Listar.rVentaPorId(id).getCoche();
+    public static Venta obtenerVenta(int id) {
+       return Listar.rVentaPorId(id);
     }
     
     
@@ -62,7 +62,34 @@ public class Controlador {
           return Listar.rCochePorId(id);
       }
 
-    public static void actualizarCocheVenta(Coche coche, int Campo,int id) {
-        Actualizar.actualizarVenta(coche,Campo,id);
+    public static void actualizarVentaObjeto(Object object, int campo,int id) {
+        Actualizar.actualizarVenta(object,campo,id);
+    }
+
+    public static void crear(int campo, Object object) {
+        
+          switch (campo) {
+              case Utilidades.CLIENTE:
+                  Cliente cliente = (Cliente)object;
+                  Crear.gCliente(cliente);
+                  break;
+              case Utilidades.CONCESIONARIO:
+                  Concesionario concesionario = (Concesionario)object;
+                  Crear.gConcesionario(concesionario);
+                  break;
+              case Utilidades.COCHE:
+
+                  break;
+                  
+              case Utilidades.FABRICANTE:
+                    Fabricante fabricante = (Fabricante)object;
+                    Crear.gFabricante(fabricante);
+                  break;
+
+                  
+           
+          }
+        
+        
     }
 }

@@ -32,9 +32,6 @@ import javax.persistence.Table;
   
 })
 
-
-
-
 @Entity
 @Table(name = "Coche")
 public class Coche {
@@ -49,10 +46,10 @@ public class Coche {
     @Column(name = "color")
     private String color;
     
-    @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
     private List<Venta>ventas;
   
-    @ManyToOne(fetch = FetchType.LAZY, cascade =CascadeType.ALL) 
+    @ManyToOne(cascade =CascadeType.ALL) 
     @JoinColumn(name = "id_coche")
     private Fabricante fabricante;
 
@@ -156,6 +153,7 @@ public class Coche {
 
     public void setVentas(List<Venta> ventas) {
         this.ventas = ventas;
+        
     }
     
     
@@ -169,7 +167,7 @@ public class Coche {
     
      public void addVenta(Venta v){
          if(ventas ==null){
-             ventas = new ArrayList<Venta>();
+             ventas = new ArrayList<>();
          }
          if(!ventas.contains(v)){
              ventas.add(v);

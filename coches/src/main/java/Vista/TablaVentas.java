@@ -9,9 +9,11 @@ import Util.Utilidades;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Controlador.Controlador;
+import com.mycompany.coches.modelo.Fabricante;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
@@ -28,10 +30,9 @@ public class TablaVentas extends javax.swing.JFrame implements MouseListener, Ta
 
     private ModeloTabla modelo;
     private static ArrayList<String> titulosList;
-    private static String busqueda;
-    
-    private static int campoBusqueda;
-    private DefaultTableModel modeleloResultado;
+   // private static String busqueda; 
+    //private static int campoBusqueda;
+    //private DefaultTableModel modeleloResultado;
     
     
     /**
@@ -56,9 +57,24 @@ public class TablaVentas extends javax.swing.JFrame implements MouseListener, Ta
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tVentas = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+
+        jMenu3.setText("jMenu3");
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,33 +97,91 @@ public class TablaVentas extends javax.swing.JFrame implements MouseListener, Ta
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Ventas");
+
+        jMenu1.setText("Nuevo");
+
+        jMenuItem1.setText("Registar cliente");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Registrar fabricante");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem6.setText("Registrar coche");
+        jMenu1.add(jMenuItem6);
+
+        jMenuItem4.setText("Registrar concesionario");
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setText("Registrar venta");
+        jMenu1.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(297, 297, 297)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+          JDialog a = emergenteA(0, "Editar Cliente");
+                    a.add(new FormularioCliente());
+                    emergeteB(a);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       JDialog a = emergenteA(0, "Nuevo fabricate");
+       a.add(new FormularioFabricante());
+       emergeteB(a);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
     
@@ -119,7 +193,8 @@ public class TablaVentas extends javax.swing.JFrame implements MouseListener, Ta
         titulosList.add("");
         titulosList.add("");
         titulosList.add("");
-        titulosList.add("");
+  
+
 
         String titulos[] = new String[titulosList.size()];
         for (int i = 0; i < titulos.length; i++) {
@@ -139,6 +214,8 @@ public class TablaVentas extends javax.swing.JFrame implements MouseListener, Ta
             informacion[x][Utilidades.FECHA] = Controlador.obtenerCampoMo("fecha", x);
             informacion[x][Utilidades.PRECIO] = Controlador.obtenerCampoMo("precio", x);
             informacion[x][Utilidades.COCHE] = "COCHE";
+            informacion[x][Utilidades.CONCESIONARIO] = "CONCESIONARIO";
+            informacion[x][Utilidades.CLIENTE] = "CLIENTE";
         }
         return informacion;
     }
@@ -153,7 +230,12 @@ public class TablaVentas extends javax.swing.JFrame implements MouseListener, Ta
       private void construirTabla(String[] titulos, Object[][] data) {
         modelo = new ModeloTabla(data, titulos);
         tVentas.setModel(modelo);
+        tVentas.getColumnModel().getColumn(Utilidades.COCHE).setPreferredWidth(100);
+        tVentas.getColumnModel().getColumn(Utilidades.CLIENTE).setPreferredWidth(100);
+        tVentas.getColumnModel().getColumn(Utilidades.CONCESIONARIO).setPreferredWidth(130);
         tVentas.getColumnModel().getColumn(Utilidades.COCHE).setCellRenderer(new GestionCeldas("icono")); 
+        tVentas.getColumnModel().getColumn(Utilidades.CLIENTE).setCellRenderer(new GestionCeldas("icono")); 
+        tVentas.getColumnModel().getColumn(Utilidades.CONCESIONARIO).setCellRenderer(new GestionCeldas("icono")); 
     }
     
     
@@ -194,6 +276,17 @@ public class TablaVentas extends javax.swing.JFrame implements MouseListener, Ta
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tVentas;
@@ -207,28 +300,60 @@ public class TablaVentas extends javax.swing.JFrame implements MouseListener, Ta
         return Id;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        int fila = tVentas.rowAtPoint(e.getPoint());
-        int columna = tVentas.columnAtPoint(e.getPoint());
-
-        if (columna == Utilidades.COCHE) {
-            int id = idTabla(fila);
-            JDialog frame = new JDialog(this, "Editar Coche", true);
-            frame.setLocation(this.getX(), this.getY());
-            FormularioCoche f = new  FormularioCoche(id);
-            frame.getContentPane().add(f);
+ 
+    private  JDialog emergenteA(int fila, String titulo){
+           int id = idTabla(fila);
+           JDialog frame = new JDialog(this,titulo, true);
+           frame.setLocation(this.getX(), this.getY());
+           FormularioCoche f = new FormularioCoche(id);
+           return frame;
+    }
+    private void emergeteB(JDialog frame){
             frame.pack();
             frame.setVisible(true);
             construirTabla();
             restaurarEscucha();
-
+    } 
+     
+     
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int fila = tVentas.rowAtPoint(e.getPoint());
+        int columna = tVentas.columnAtPoint(e.getPoint());
+        int id = idTabla(fila);
+        switch (columna) {
+            case Utilidades.COCHE:
+                {
+                    JDialog a = emergenteA(fila, "Editar coche");
+                    a.add(new FormularioCoche(id));
+                    emergeteB(a);
+                    break;
+                }
+            case Utilidades.CONCESIONARIO:
+                {
+                    JDialog a = emergenteA(fila, "Editar Concesionario");
+                    a.add(new FormularioConcesionario(id));
+                    emergeteB(a);
+                    break;
+                }
+            case Utilidades.CLIENTE:
+                {
+                    JDialog a = emergenteA(fila, "Editar Cliente");
+                    a.add(new FormularioCliente(id));
+                    emergeteB(a);
+                    break;
+                }
+            default:
+                break;
         }
+        
+        
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
       
+        
     }
 
     @Override

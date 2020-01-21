@@ -25,9 +25,12 @@ public class ModeloTabla extends DefaultTableModel{
         @Override
 	public boolean isCellEditable (int row, int column)
 	{
-            boolean editable =true;
-        if (column==Utilidades.ID || column == Utilidades.COCHE){   
-                editable =false; 
+        boolean editable =true;
+        if (column==Utilidades.ID || 
+            column == Utilidades.COCHE ||
+            column == Utilidades.CONCESIONARIO ||
+            column ==  Utilidades.CLIENTE ){   
+               editable =false; 
 	    }
             
            return editable;
